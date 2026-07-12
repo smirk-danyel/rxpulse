@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RxPulse Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <%- include('partials/nav') %>
+        
+        <main class="main-content">
+            <section class="welcome-section">
+                <h1>Welcome Back Admin.</h1>
+            </section>
+
+            <section class="metrics-grid">
+                <div class="card card-blue">
+                    <div>
+                        <span class="card-title">Total Registered Patients</span>
+                        <h2 class="card-value"><%= totalPatients %> Profiles</h2>
+                    </div>
+                    <a href="/patients" class="card-link">View Details</a>
+                </div>
+                <div class="card card-teal">
+                    <div>
+                        <span class="card-title">Tracked Medicine Items</span>
+                        <h2 class="card-value"><%= totalMedicines %> Items</h2>
+                    </div>
+                    <a href="/medicine" class="card-link">Visit Inventory</a>
+                </div>
+                <div class="card card-yellow">
+                    <div>
+                        <span class="card-title">Logged Prescriptions</span>
+                        <h2 class="card-value"><%= totalPrescriptions %> Records</h2>
+                    </div>
+                    <a href="/prescriptions" class="card-link">View Records</a>
+                </div>
+            </section>
+
+            <section class="table-container">
+                <div class="table-header"><h3>Recent Activity Logs</h3></div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Rx ID</th>
+                            <th>Patient Name</th>
+                            <th>Authorized By Staff</th>
+                            <th>Date Issued</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% recentActivity.forEach(activity => { %>
+                            <tr>
+                                <td>#<%= activity.prescription_id %></td>
+                                <td><%= activity.patient_first %> <%= activity.patient_last %></td>
+                                <td><%= activity.pharmacist_first %> <%= activity.pharmacist_last %></td>
+                                <td><%= activity.date_issued.toLocaleDateString('en-GB') %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

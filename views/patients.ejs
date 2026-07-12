@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RxPulse - Patient Registry</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <%- include('partials/nav') %>
+        
+        <main class="main-content">
+            <header class="welcome-section"><h1>Patient Registry Management</h1></header>
+
+            <h3><%= editingPatient ? 'Modify Record Profile' : 'Register New Patient Profile' %></h3>
+            <form action="<%= editingPatient ? '/patients/update/' + editingPatient.patient_id : '/patients/add' %>" method="POST" class="form-inline">
+                <input type="text" name="first_name" placeholder="First Name" value="<%= editingPatient ? editingPatient.first_name : '' %>" required>
+                <input type="text" name="last_name" placeholder="Last Name" value="<%= editingPatient ? editingPatient.last_name : '' %>" required>
+                <input type="date" name="dob" value="<%= editingPatient && editingPatient.dob ? editingPatient.dob.toISOString().split('T')[0] : '' %>">
+                <input type="text" name="phone" placeholder="Phone Link (+254...)" value="<%= editingPatient ? editingPatient.phone : '' %>">
+                <button type="submit" class="btn btn-add"><%= editingPatient ? 'Update' : 'Save Profile' %></button>
+                <% if(editingPatient) { %> <a href="/patients" class="btn" style="background:#eee; color:#333;">Cancel</a> <% } %>
+            </form>
+
+            <section class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Date of Birth</th>
+                            <th>Phone Contact</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% patients.forEach(patient => { %>
+                            <tr>
+                                <td>#<%= patient.patient_id %></td>
+                                <td><%= patient.first_name %></td>
+                                <td><%= patient.last_name %></td>
+                                <td><%= patient.dob ? patient.dob.toLocaleDateString('en-GB') : 'N/A' %></td>
+                                <td><%= patient.phone || 'N/A' %></td>
+                                <td>
+                                    <a href="/patients/edit/<%= patient.patient_id %>" class="btn btn-edit">Edit</a>
+                                    <a href="/patients/delete/<%= patient.patient_id %>" class="btn btn-delete" onclick="return confirm('Permanently remove profile?')">Delete</a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

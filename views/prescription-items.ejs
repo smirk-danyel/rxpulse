@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RxPulse - Prescription Dispense Items</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <%- include('partials/nav') %>
+        <main class="main-content">
+            <header class="welcome-section"><h1>Dispensed Product Breakdown</h1></header>
+            <section class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Item ID</th><th>Rx Ref</th><th>Patient</th><th>Medicine</th><th>Quantity</th><th>Dosage Instructions</th></tr>
+                    </thead>
+                    <tbody>
+                        <% items.forEach(item => { %>
+                            <tr>
+                                <td>#<%= item.item_id %></td>
+                                <td><strong>#<%= item.prescription_id %></strong></td>
+                                <td><%= item.patient_first %> <%= item.patient_last %></td>
+                                <td><%= item.medicine_name %> <span style="font-size:12px; color:#6b7280;">(<%= item.medicine_brand %>)</span></td>
+                                <td><%= item.quantity %></td>
+                                <td style="font-style: italic; color:#4b5563;"><%= item.dosage_instructions %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RxPulse - Medicine Inventory</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <%- include('partials/nav') %>
+        <main class="main-content">
+            <header class="welcome-section"><h1>Medicine Stock Inventory</h1></header>
+            <section class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Item ID</th><th>Generic Name</th><th>Brand</th><th>Available Stock</th><th>Price</th></tr>
+                    </thead>
+                    <tbody>
+                        <% medicines.forEach(med => { %>
+                            <tr>
+                                <td>#<%= med.medicine_id %></td>
+                                <td><strong><%= med.name %></strong></td>
+                                <td><%= med.brand || 'Generic' %></td>
+                                <td><%= med.stock_quantity %> units</td>
+                                <td>Ksh <%= parseFloat(med.price).toFixed(2) %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

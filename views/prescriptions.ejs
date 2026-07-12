@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RxPulse - Prescriptions</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <%- include('partials/nav') %>
+        <main class="main-content">
+            <header class="welcome-section"><h1>Authorized Prescription Ledgers</h1></header>
+            <section class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Prescription ID</th><th>Patient Profile</th><th>Authorized By Staff</th><th>Date Issued</th></tr>
+                    </thead>
+                    <tbody>
+                        <% prescriptions.forEach(rx => { %>
+                            <tr>
+                                <td>#<%= rx.prescription_id %></td>
+                                <td><%= rx.patient_first %> <%= rx.patient_last %></td>
+                                <td><%= rx.pharmacist_first %> <%= rx.pharmacist_last %></td>
+                                <td><%= rx.date_issued.toLocaleDateString('en-GB') %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
